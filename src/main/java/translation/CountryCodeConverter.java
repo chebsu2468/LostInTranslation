@@ -61,12 +61,11 @@ public class CountryCodeConverter {
     }
 
     /**
-     * Return the code of the country for the given country name.
+     * Return the code of ,the country for the given country name.
      * @param country the name of the country
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task B: update this code to use an instance variable to return the correct value
         return countryToCountryCode.get(country);
     }
 
@@ -75,6 +74,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        return  countryToCountryCode.size();
+      return  countryToCountryCode.size();
     }
 }

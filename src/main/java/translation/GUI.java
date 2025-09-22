@@ -12,6 +12,7 @@ import java.awt.event.*;
 public class GUI {
 
     public static void main(String[] args) {
+        final String[] temp = {""};
         SwingUtilities.invokeLater(() -> {
             JPanel countryPanel = new JPanel();
             JTextField countryField = new JTextField(10);
@@ -21,9 +22,36 @@ public class GUI {
             countryPanel.add(countryField);
 
             JPanel languagePanel = new JPanel();
-            JTextField languageField = new JTextField(10);
             languagePanel.add(new JLabel("Language:"));
-            languagePanel.add(languageField);
+
+            JSONTranslator translator = new JSONTranslator();
+
+            JComboBox<String> languageComboBox = new JComboBox<>();
+            for(String countryCode : translator.getLanguageCodes()) {
+                languageComboBox.addItem(countryCode);
+            }
+            languagePanel.add(languageComboBox);
+
+            languageComboBox.addItemListener(new ItemListener() {
+
+                /**
+                 * Invoked when an item has been selected or deselected by the user.
+                 * The code written for this method performs the operations
+                 * that need to occur when an item is selected (or deselected).
+                 *
+                 * @param e the event to be processed
+                 */
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        String country = languageComboBox.getSelectedItem().toString();
+                        temp[0] = country;
+                        //JOptionPane.showMessageDialog(null, "user selected " + country + "!");
+                    }
+                }
+            });
+
 
             JPanel buttonPanel = new JPanel();
             JButton submit = new JButton("Submit");
@@ -39,7 +67,7 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String language = languageField.getText();
+                    String language = temp[0];
                     String country = countryField.getText();
 
                     // for now, just using our simple translator, but
@@ -70,5 +98,7 @@ public class GUI {
 
 
         });
+
     }
+
 }
