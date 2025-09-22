@@ -61,7 +61,7 @@ public class CanadaTranslator implements Translator {
             return "Canadá";
         }
         else if ("ru".equals(languageCode)){
-            return "Канада";
+            return "Канада ";
         }
         else {
             return null;
