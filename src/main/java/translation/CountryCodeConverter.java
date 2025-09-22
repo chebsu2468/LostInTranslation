@@ -74,6 +74,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-        return countryCodeToCountry.size();
+      return  countryToCountryCode.size();
     }
 }
