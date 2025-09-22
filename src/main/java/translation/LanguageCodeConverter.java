@@ -56,7 +56,7 @@ public class LanguageCodeConverter {
 
     /**
      * Return the name of the language for the given language code.
-     * @param code the 2-letter language code
+     * @param code the 2-letter language code.
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
