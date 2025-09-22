@@ -24,7 +24,7 @@ public class CanadaTranslator implements Translator {
     public List<String> getLanguageCodes() {
         return new ArrayList<>(List.of("de", "en", "zh", "ru", "es"));
     }
-    
+
     /**
      * Return the country codes for all countries whose translations are
      * available from this translator.
