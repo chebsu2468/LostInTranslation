@@ -18,9 +18,9 @@ import org.json.JSONObject;
  */
 public class JSONTranslator implements Translator {
 
-    private final List<String> languageCodes = new ArrayList<>();
+    private final List<String> languageCodes = new ArrayList<>(); // list of all the codes
 
-    private final List<String> countryCodes = new ArrayList<>();
+    private final List<String> countryCodes = new ArrayList<>(); // list of all the contry=ies
 
     // the key used is "countryCode-languageCode"; the value is the translated country name
     private final Map<String, String> translations = new HashMap<>();
@@ -46,21 +46,23 @@ public class JSONTranslator implements Translator {
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
-                JSONObject countryData = jsonArray.getJSONObject(i);
-                String countryCode = countryData.getString("alpha3");
+                JSONObject countryData = jsonArray.getJSONObject(i); //country in diff lan - one row
+                String countryCode = countryData.getString("alpha3"); //name of country code - from the row extracted above
 
-                List<String> languages = new ArrayList<>();
+                List<String> languages = new ArrayList<>(); //initially empty
 
                 // TODO Task C: record this countryCode in the correct instance variable
+                this.countryCodes.add(countryCode); //add a new country whatever we get in the iteration to the list of countrycodes
 
                 // iterate through the other keys to get the information that we need
-                for (String key : countryData.keySet()) {
-                    if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
-                        String languageCode = key;
-                        // TODO Task C: record this translation in the appropriate instance variable
+                for (String languageCode : countryData.keySet()) {
+                    if (!languageCode.equals("id") && !languageCode.equals("alpha2") && !languageCode.equals("alpha3")) // you want the country name in diff languages
+                         {
+                             // TODO Task C: record this translation in the appropriate instance variable
+                             this.translations.put(countryCode+"-"+languageCode, countryData.getString(languageCode));
 
-                        if (!languages.contains(languageCode)) {
-                            languages.add(languageCode);
+                        if (!languageCodes.contains(languageCode)) {
+                            languageCodes.add(languageCode);
                         }
                     }
                 }
@@ -74,7 +76,7 @@ public class JSONTranslator implements Translator {
     @Override
     public List<String> getLanguageCodes() {
         // TODO Task C: return a copy of the language codes
-        return new ArrayList<>();
+        return new ArrayList<>(languageCodes);
     }
 
     @Override
@@ -85,6 +87,9 @@ public class JSONTranslator implements Translator {
     @Override
     public String translate(String countryCode, String languageCode) {
         // TODO Task C: complete this method using your instance variables as needed
+        String result =  translations.get(countryCode+"-"+languageCode);
+        if (result!=null)
+            return result;
         return "JSONTranslator's translate method is not implemented!";
     }
 }
