@@ -71,12 +71,23 @@ public class GUI {
             submit.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String country = temp[0];
-                    String language = languageComboBox.getSelectedItem().toString();
+                    String countryName = temp[0];
+
+                    // Check if a country was selected
+                    if (countryName.isEmpty()) {
+                        resultLabel.setText("Please select a country!");
+                        return;
+                    }
+
+                    String languageName = languageComboBox.getSelectedItem().toString();
+
+                    // Convert back to codes
+                    String countryCode = convert.fromCountry(countryName);
+                    String languageCode = converter.fromLanguage(languageName);
 
                     Translator translator1 = new JSONTranslator();
 
-                    String result = translator1.translate(country, language);
+                    String result = translator1.translate(countryCode, languageCode);
                     if (result == null) {
                         result = "no translation found!";
                     }
