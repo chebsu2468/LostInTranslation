@@ -13,6 +13,11 @@ public class GUI {
 
             JSONTranslator translator = new JSONTranslator();
             String[] countryCodes = translator.getCountryCodes().toArray(new String[0]);
+            CountryCodeConverter convert = new CountryCodeConverter();
+
+            for(int i = 0; i < countryCodes.length; i++){
+                countryCodes[i] = convert.fromCountryCode(countryCodes[i].toLowerCase());
+            }
 
             JPanel countryPanel = new JPanel();
             countryPanel.setLayout(new BorderLayout());
@@ -36,10 +41,11 @@ public class GUI {
 
             JPanel languagePanel = new JPanel();
             languagePanel.add(new JLabel("Language:"));
+            LanguageCodeConverter converter = new LanguageCodeConverter();
 
             JComboBox<String> languageComboBox = new JComboBox<>();
             for(String countryCode : translator.getLanguageCodes()) {
-                languageComboBox.addItem(countryCode);
+                languageComboBox.addItem(converter.fromLanguageCode(countryCode));
             }
             languagePanel.add(languageComboBox);
 
@@ -81,9 +87,10 @@ public class GUI {
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-            mainPanel.add(countryPanel);
             mainPanel.add(languagePanel);
             mainPanel.add(buttonPanel);
+            mainPanel.add(countryPanel);
+
 
             JFrame frame = new JFrame("Country Name Translator");
             frame.setContentPane(mainPanel);
